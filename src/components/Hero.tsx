@@ -18,10 +18,13 @@ const Hero = () => {
             transition={{ duration: 0.5, delay: 0.2, type: 'spring' }}
             className="relative mb-6"
           >
-            <div className="w-24 h-24 rounded-full bg-gradient-to-br from-primary-400 to-primary-600 p-1">
+            <div className="w-28 h-28 rounded-full bg-gradient-to-br from-primary-400 to-primary-600 p-1">
               <div className="w-full h-full rounded-full bg-dark-800 flex items-center justify-center overflow-hidden">
-                {/* Memoji-style avatar */}
-                <div className="text-5xl">👨‍💻</div>
+                <img 
+                  src="/images/profile.png" 
+                  alt="Alfred Bis" 
+                  className="w-full h-full object-cover"
+                />
               </div>
             </div>
             <motion.div
