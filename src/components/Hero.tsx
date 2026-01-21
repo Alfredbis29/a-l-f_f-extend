@@ -1,15 +1,44 @@
 import { motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
 
 const Hero = () => {
+  const [glowIntensity, setGlowIntensity] = useState(0);
+
+  useEffect(() => {
+    // Listen for Hero glow events from AnimatedBackground
+    const handleHeroGlow = (event: Event) => {
+      const customEvent = event as CustomEvent<{ intensity: number }>;
+      setGlowIntensity(customEvent.detail.intensity);
+    };
+
+    window.addEventListener('heroGlow', handleHeroGlow as EventListener);
+
+    return () => {
+      window.removeEventListener('heroGlow', handleHeroGlow as EventListener);
+    };
+  }, []);
+
   return (
-    <section id="home" className="min-h-screen pt-32 pb-20 px-6">
-      <div className="max-w-6xl mx-auto">
+    <section id="home" className="min-h-screen pt-32 pb-20 px-6 relative">
+      {/* Glow effect that reacts to squares */}
+      <div 
+        className="absolute inset-0 pointer-events-none transition-opacity duration-300"
+        style={{
+          background: `radial-gradient(circle at center, rgba(139, 92, 246, ${glowIntensity * 0.1}), transparent 70%)`,
+          opacity: glowIntensity,
+        }}
+      />
+      
+      <div className="max-w-6xl mx-auto relative z-10">
         {/* Top Section with Avatar */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="flex flex-col items-center mb-12"
+          className="flex flex-col items-center mb-12 relative"
+          style={{
+            filter: `drop-shadow(0 0 ${10 + glowIntensity * 20}px rgba(255, 255, 255, ${glowIntensity * 0.3}))`,
+          }}
         >
           {/* Avatar */}
           <motion.div
@@ -48,10 +77,10 @@ const Hero = () => {
             className="text-center"
           >
             <h2 className="text-2xl md:text-3xl font-display font-semibold text-white mb-2">
-              Judges a book
+              Where visuals meet architecture
             </h2>
             <h2 className="text-2xl md:text-3xl font-display font-semibold">
-              by its <span className="text-gradient">COVER...</span>
+              — I build the <span className="text-gradient">full experience.</span>
             </h2>
           </motion.div>
         </motion.div>
