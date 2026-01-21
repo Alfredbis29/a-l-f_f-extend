@@ -18,8 +18,8 @@ const Hero = () => {
             transition={{ duration: 0.5, delay: 0.2, type: 'spring' }}
             className="relative mb-6"
           >
-            <div className="w-28 h-28 rounded-full bg-gradient-to-br from-primary-400 to-primary-600 p-1">
-              <div className="w-full h-full rounded-full bg-dark-800 flex items-center justify-center overflow-hidden">
+            <div className="w-32 h-32 rounded-full border-2 border-gray-700/50 p-0.5">
+              <div className="w-full h-full rounded-full overflow-hidden">
                 <img 
                   src="/images/profile.png" 
                   alt="Alfred Bis" 
@@ -27,11 +27,7 @@ const Hero = () => {
                 />
               </div>
             </div>
-            <motion.div
-              animate={{ scale: [1, 1.2, 1] }}
-              transition={{ duration: 2, repeat: Infinity }}
-              className="absolute -top-1 -right-1 w-4 h-4 bg-green-400 rounded-full border-2 border-dark-900"
-            />
+            <div className="absolute bottom-1 right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-dark-900" />
           </motion.div>
 
           {/* Hello Text */}
