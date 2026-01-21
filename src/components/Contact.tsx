@@ -1,6 +1,26 @@
 import { motion } from 'framer-motion';
+import { useState } from 'react';
 
 const Contact = () => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: '',
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Handle form submission
+    console.log('Form submitted:', formData);
+  };
+
   return (
     <section id="contact" className="py-20 px-6">
       <div className="max-w-4xl mx-auto">
@@ -9,11 +29,10 @@ const Contact = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center"
         >
           {/* Section Title */}
           <h2 className="text-2xl md:text-3xl font-display font-semibold text-white mb-6">
-            Contact
+            Contact me
           </h2>
 
           {/* Description */}
@@ -22,65 +41,84 @@ const Contact = () => {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2, duration: 0.6 }}
-            className="text-gray-400 text-sm leading-relaxed mb-4 max-w-xl mx-auto"
+            className="text-gray-400 text-sm leading-relaxed mb-8 max-w-xl"
           >
-            I'm currently looking to join a{' '}
-            <span className="text-primary-400">cross-functional</span> team that values
-            improving people's lives through accessible design.
+            If you have an application you are interested in developing, a feature that you need
+            built or a project that needs coding. I'd love to help with it.
           </motion.p>
 
-          <motion.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.3, duration: 0.6 }}
-            className="text-gray-500 text-xs mb-8"
-          >
-            or if you have a question or just want to say hi, I'll try my best to get
-            back to you!
-          </motion.p>
-
-          {/* Email */}
-          <motion.a
-            href="mailto:alfredbis29@outlook.com"
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.4, duration: 0.5 }}
-            whileHover={{ scale: 1.05 }}
-            className="inline-block text-primary-400 hover:text-primary-300 transition-colors mb-8"
-          >
-            <span className="text-sm">📧 alfredbis29@outlook.com</span>
-          </motion.a>
-
-          {/* Social Links */}
-          <motion.div
+          {/* Contact Form */}
+          <motion.form
+            onSubmit={handleSubmit}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.5, duration: 0.6 }}
-            className="flex justify-center gap-4"
+            transition={{ delay: 0.3, duration: 0.6 }}
+            className="space-y-6"
           >
-            {[
-              { icon: '🐦', href: '#', label: 'Twitter' },
-              { icon: '💼', href: '#', label: 'LinkedIn' },
-              { icon: '📸', href: '#', label: 'Instagram' },
-            ].map((social, index) => (
-              <motion.a
-                key={social.label}
-                href={social.href}
-                whileHover={{ scale: 1.1, y: -3 }}
-                initial={{ opacity: 0, scale: 0 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.1 * index + 0.6 }}
-                className="w-10 h-10 rounded-full bg-dark-700/50 flex items-center justify-center hover:bg-primary-600/30 transition-colors"
-                aria-label={social.label}
-              >
-                <span className="text-lg">{social.icon}</span>
-              </motion.a>
-            ))}
-          </motion.div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {/* Name Input */}
+              <div>
+                <label htmlFor="name" className="block text-gray-400 text-sm mb-2">
+                  Name
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 bg-dark-700/50 border border-dark-500/50 rounded-lg text-white text-sm focus:outline-none focus:border-primary-500 transition-colors"
+                  placeholder="Your name"
+                  required
+                />
+              </div>
+
+              {/* Email Input */}
+              <div>
+                <label htmlFor="email" className="block text-gray-400 text-sm mb-2">
+                  Email
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 bg-dark-700/50 border border-dark-500/50 rounded-lg text-white text-sm focus:outline-none focus:border-primary-500 transition-colors"
+                  placeholder="your@email.com"
+                  required
+                />
+              </div>
+            </div>
+
+            {/* Message Input */}
+            <div>
+              <label htmlFor="message" className="block text-gray-400 text-sm mb-2">
+                Message
+              </label>
+              <textarea
+                id="message"
+                name="message"
+                value={formData.message}
+                onChange={handleChange}
+                rows={5}
+                className="w-full px-4 py-3 bg-dark-700/50 border border-dark-500/50 rounded-lg text-white text-sm focus:outline-none focus:border-primary-500 transition-colors resize-none"
+                placeholder="Your message..."
+                required
+              />
+            </div>
+
+            {/* Submit Button */}
+            <motion.button
+              type="submit"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="btn-primary"
+            >
+              Get In Touch
+            </motion.button>
+          </motion.form>
         </motion.div>
 
         {/* Footer */}
@@ -105,4 +143,3 @@ const Contact = () => {
 };
 
 export default Contact;
-
