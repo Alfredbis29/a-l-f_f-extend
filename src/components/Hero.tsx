@@ -57,7 +57,7 @@ const Hero = () => {
           </motion.div>
         </motion.div>
 
-        {/* Software Engineer Title */}
+        {/* Main Title */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -65,11 +65,10 @@ const Hero = () => {
           className="text-center mb-8"
         >
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-white mb-4">
-            I'm a Software Engineer<span className="text-primary-400">!</span>
+            I'm Alfred<span className="text-primary-400">!</span>
           </h1>
-          <p className="text-gray-400 text-sm md:text-base">
-            Currently, I'm a Software Engineer at{' '}
-            <span className="text-primary-400">@ Facebook</span>
+          <p className="text-gray-400 text-lg md:text-xl">
+            Glad to see you!
           </p>
         </motion.div>
 
@@ -80,13 +79,28 @@ const Hero = () => {
           transition={{ delay: 0.9, duration: 0.6 }}
           className="max-w-2xl mx-auto text-center"
         >
-          <p className="text-gray-500 text-sm leading-relaxed mb-2">
-            A self-taught UI/UX designer, functioning in the industry for 3+ years now.
+          <p className="text-gray-400 text-sm md:text-base leading-relaxed">
+            I'm Alfred Bis a software developer! I can help you build a product, feature or website. 
+            Look through some of my work and experience! If you like what you see and have a project 
+            you need coded, don't hesitate to contact me.
           </p>
-          <p className="text-gray-500 text-sm leading-relaxed">
-            I make meaningful and delightful digital products that create an equilibrium
-            between user needs and business goals.
-          </p>
+
+          {/* CTA Button */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.1, duration: 0.5 }}
+            className="mt-8"
+          >
+            <motion.a
+              href="#contact"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="btn-primary inline-block"
+            >
+              LET'S CONNECT
+            </motion.a>
+          </motion.div>
         </motion.div>
       </div>
     </section>
