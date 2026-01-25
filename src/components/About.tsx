@@ -213,7 +213,9 @@ const About = () => {
               LET'S CONNECT
             </motion.a>
             <motion.a
-              href="#"
+              href="https://chatgpt.com/backend-api/estuary/content?id=file_00000000287871f5a18bf52ccb129938&ts=491400&p=fs&cid=1&sig=6fd134493047ec817d67c78055de323c71c5049d61eda43556dcaa3128743fc5&v=0"
+              target="_blank"
+              rel="noopener noreferrer"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="px-6 py-3 border border-primary-500/50 hover:border-primary-400 rounded-lg font-medium text-sm text-primary-400 transition-all duration-300"
