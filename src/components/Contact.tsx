@@ -38,11 +38,14 @@ const Contact = () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Accept': 'application/json',
         },
         body: JSON.stringify(formData),
       });
 
-      if (response.ok) {
+      const data = await response.json();
+
+      if (response.ok && !data.error) {
         setSubmitStatus('success');
         setFormData({
           name: '',
@@ -54,13 +57,13 @@ const Contact = () => {
           setSubmitStatus('idle');
         }, 5000);
       } else {
-        const data = await response.json();
         setSubmitStatus('error');
-        setErrorMessage(data.error || 'Something went wrong. Please try again.');
+        setErrorMessage(data.error || data.message || 'Something went wrong. Please try again.');
       }
     } catch (error) {
       setSubmitStatus('error');
       setErrorMessage('Network error. Please check your connection and try again.');
+      console.error('Form submission error:', error);
     } finally {
       setIsSubmitting(false);
     }

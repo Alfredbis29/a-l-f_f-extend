@@ -29,63 +29,12 @@ const AnimatedBackground = () => {
 
     window.addEventListener('mousemove', handleMouseMove);
 
-    const canvasWidth = canvas.width;
-    const canvasHeight = canvas.height;
-
-    // Simple floating particles for subtle background effect
-    class Particle {
-      x: number;
-      y: number;
-      size: number;
-      speedX: number;
-      speedY: number;
-      opacity: number;
-
-      constructor() {
-        this.x = Math.random() * canvasWidth;
-        this.y = Math.random() * canvasHeight;
-        this.size = Math.random() * 2 + 1; // 1-3px
-        this.speedX = (Math.random() - 0.5) * 0.2;
-        this.speedY = (Math.random() - 0.5) * 0.2;
-        this.opacity = Math.random() * 0.3 + 0.1; // 0.1-0.4
-      }
-
-      update() {
-        this.x += this.speedX;
-        this.y += this.speedY;
-
-        // Wrap around edges
-        if (this.x < 0) this.x = canvasWidth;
-        if (this.x > canvasWidth) this.x = 0;
-        if (this.y < 0) this.y = canvasHeight;
-        if (this.y > canvasHeight) this.y = 0;
-      }
-
-      draw() {
-        if (!ctx) return;
-        ctx.save();
-        ctx.globalAlpha = this.opacity;
-        ctx.fillStyle = 'rgba(139, 92, 246, 1)'; // Primary color
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.restore();
-      }
-    }
-
-    // Create subtle particles
-    const particles: Particle[] = [];
-    const particleCount = 50;
-    for (let i = 0; i < particleCount; i++) {
-      particles.push(new Particle());
-    }
-
-    // Animation loop
+    // Animation loop - only cursor glow, no particles or squares
     let animationId: number;
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // Draw subtle cursor glow
+      // Draw subtle cursor glow only
       if (mouseX > 0 && mouseY > 0) {
         const cursorGradient = ctx.createRadialGradient(
           mouseX, mouseY, 0,
@@ -98,12 +47,6 @@ const AnimatedBackground = () => {
         ctx.fillStyle = cursorGradient;
         ctx.fillRect(mouseX - 150, mouseY - 150, 300, 300);
       }
-
-      // Update and draw particles
-      particles.forEach((particle) => {
-        particle.update();
-        particle.draw();
-      });
 
       animationId = requestAnimationFrame(animate);
     };
