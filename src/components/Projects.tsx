@@ -13,21 +13,30 @@ interface Project {
 const projects: Project[] = [
   {
     id: 1,
-    title: 'Counter',
-    description: 'A counter application showcasing interactive JavaScript functionality. This project demonstrates state management and dynamic UI updates with clean, responsive design.',
-    image: '/project1.png',
-    liveUrl: '#',
-    sourceUrl: '#',
+    title: 'Twende - AI-Enhanced Travel Booking Platform',
+    description: 'Twende (Swahili for "Let\'s Go!") - A modern, full-stack travel booking platform with AI-powered search capabilities, built for the East African market. Features natural language queries, cross-border bus routes across Kenya, Uganda, Rwanda, DRC, and Tanzania, multiple payment integrations (M-Pesa, Stripe, MTN, Airtel), and a scalable microservices architecture. Built with TypeScript, NestJS, React, and deployed on Vercel and Render.',
+    image: '/twende-project.png',
+    liveUrl: 'https://enhanced-travel-booking-platform-fr.vercel.app/',
+    sourceUrl: 'https://github.com/Alfredbis29/Enhanced-Travel-Booking-Platform..git',
     reversed: false,
   },
   {
     id: 2,
+    title: 'HireMe.AI - AI-Powered Career Assistant',
+    description: 'An AI-powered platform that analyzes resumes and provides instant insights, personalized job recommendations, and career optimization suggestions. Built with Next.js 14, TypeScript, and OpenAI API. Features include AI-powered resume analysis, job matching, resume optimization suggestions, secure authentication with NextAuth.js, and a modern responsive UI with Tailwind CSS and shadcn/ui components.',
+    image: '/hireme-ai-project.png',
+    liveUrl: 'https://hire-me-ai.vercel.app/',
+    sourceUrl: 'https://github.com/Alfredbis29/HireMe.AI.git',
+    reversed: true,
+  },
+  {
+    id: 3,
     title: 'Tonic',
     description: 'A modern web application built with attention to detail and user experience. Features a clean interface and responsive design that works seamlessly across all devices.',
     image: '/project2.png',
     liveUrl: '#',
     sourceUrl: '#',
-    reversed: true,
+    reversed: false,
   },
 ];
 
@@ -124,36 +133,62 @@ const Projects = () => {
               >
                 <div className="card-glass p-4 overflow-hidden group">
                   <div className="relative aspect-video bg-gradient-to-br from-dark-600 to-dark-700 rounded-lg overflow-hidden">
-                    {/* Mock Browser Window */}
-                    <div className="absolute top-0 left-0 right-0 h-8 bg-dark-800 flex items-center px-3 gap-2">
-                      <div className="w-3 h-3 rounded-full bg-red-500/50" />
-                      <div className="w-3 h-3 rounded-full bg-yellow-500/50" />
-                      <div className="w-3 h-3 rounded-full bg-green-500/50" />
-                      <div className="flex-1 mx-4">
-                        <div className="h-4 bg-dark-600 rounded-full w-1/2" />
-                      </div>
-                    </div>
-                    
-                    {/* Content Area */}
-                    <div className="pt-8 p-4 space-y-3">
-                      <div className="h-4 bg-dark-500 rounded w-3/4" />
-                      <div className="h-3 bg-dark-500/50 rounded w-full" />
-                      <div className="h-3 bg-dark-500/50 rounded w-5/6" />
-                      <div className="grid grid-cols-3 gap-2 mt-4">
-                        <div className="h-12 bg-dark-500/30 rounded" />
-                        <div className="h-12 bg-dark-500/30 rounded" />
-                        <div className="h-12 bg-dark-500/30 rounded" />
-                      </div>
-                    </div>
-                    
-                    {/* Hover Overlay */}
-                    <motion.div
-                      initial={{ opacity: 0 }}
-                      whileHover={{ opacity: 1 }}
-                      className="absolute inset-0 bg-primary-600/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
-                    >
-                      <span className="text-white font-medium">View Project</span>
-                    </motion.div>
+                    {project.id === 1 || project.id === 2 ? (
+                      /* Twende & HireMe.AI Projects - Show Screenshot */
+                      <>
+                        <img
+                          src={project.image}
+                          alt={project.title}
+                          className="w-full h-full object-cover object-top"
+                          onError={(e) => {
+                            console.error('Failed to load image:', project.image);
+                            e.currentTarget.style.display = 'none';
+                          }}
+                        />
+                        {/* Hover Overlay */}
+                        <motion.div
+                          initial={{ opacity: 0 }}
+                          whileHover={{ opacity: 1 }}
+                          className="absolute inset-0 bg-primary-600/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity z-10"
+                        >
+                          <span className="text-white font-medium">View Project</span>
+                        </motion.div>
+                      </>
+                    ) : (
+                      /* Other Projects - Mock Browser Window */
+                      <>
+                        {/* Mock Browser Window */}
+                        <div className="absolute top-0 left-0 right-0 h-8 bg-dark-800 flex items-center px-3 gap-2">
+                          <div className="w-3 h-3 rounded-full bg-red-500/50" />
+                          <div className="w-3 h-3 rounded-full bg-yellow-500/50" />
+                          <div className="w-3 h-3 rounded-full bg-green-500/50" />
+                          <div className="flex-1 mx-4">
+                            <div className="h-4 bg-dark-600 rounded-full w-1/2" />
+                          </div>
+                        </div>
+                        
+                        {/* Content Area */}
+                        <div className="pt-8 p-4 space-y-3">
+                          <div className="h-4 bg-dark-500 rounded w-3/4" />
+                          <div className="h-3 bg-dark-500/50 rounded w-full" />
+                          <div className="h-3 bg-dark-500/50 rounded w-5/6" />
+                          <div className="grid grid-cols-3 gap-2 mt-4">
+                            <div className="h-12 bg-dark-500/30 rounded" />
+                            <div className="h-12 bg-dark-500/30 rounded" />
+                            <div className="h-12 bg-dark-500/30 rounded" />
+                          </div>
+                        </div>
+                        
+                        {/* Hover Overlay */}
+                        <motion.div
+                          initial={{ opacity: 0 }}
+                          whileHover={{ opacity: 1 }}
+                          className="absolute inset-0 bg-primary-600/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                        >
+                          <span className="text-white font-medium">View Project</span>
+                        </motion.div>
+                      </>
+                    )}
                   </div>
                 </div>
               </motion.div>

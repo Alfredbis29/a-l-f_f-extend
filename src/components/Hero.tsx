@@ -47,12 +47,12 @@ const Hero = () => {
             transition={{ duration: 0.5, delay: 0.2, type: 'spring' }}
             className="relative mb-6"
           >
-            <div className="w-36 h-36 rounded-full border-2 border-gray-700/50 p-0.5">
+            <div className="w-36 h-36 rounded-full border-2 border-gray-700/50 p-0.5 overflow-hidden">
               <div className="w-full h-full rounded-full overflow-hidden bg-gray-800">
                 <img 
                   src="/images/profile.png" 
                   alt="Alfred Bis" 
-                  className="w-full h-full object-cover object-top scale-90"
+                  className="w-full h-full object-cover object-top rounded-full"
                 />
               </div>
             </div>
