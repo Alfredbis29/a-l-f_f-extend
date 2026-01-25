@@ -10,7 +10,7 @@ const AnimatedBackground = () => {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    // Set canvas size
+    // Set canvas size - works on all devices
     const resizeCanvas = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
@@ -18,34 +18,61 @@ const AnimatedBackground = () => {
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
 
-    // Mouse position for subtle cursor glow
-    let mouseX = 0;
-    let mouseY = 0;
+    // Position for cursor/touch glow
+    let pointerX = 0;
+    let pointerY = 0;
+    let isActive = false;
 
+    // Mouse events for desktop
     const handleMouseMove = (e: MouseEvent) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
+      pointerX = e.clientX;
+      pointerY = e.clientY;
+      isActive = true;
     };
 
-    window.addEventListener('mousemove', handleMouseMove);
+    const handleMouseLeave = () => {
+      isActive = false;
+    };
 
-    // Animation loop - only cursor glow, no particles or squares
+    // Touch events for mobile
+    const handleTouchMove = (e: TouchEvent) => {
+      if (e.touches.length > 0) {
+        pointerX = e.touches[0].clientX;
+        pointerY = e.touches[0].clientY;
+        isActive = true;
+      }
+    };
+
+    const handleTouchEnd = () => {
+      // Keep the glow visible for a moment after touch ends
+      setTimeout(() => {
+        isActive = false;
+      }, 500);
+    };
+
+    // Add event listeners for both mouse and touch
+    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mouseleave', handleMouseLeave);
+    window.addEventListener('touchmove', handleTouchMove, { passive: true });
+    window.addEventListener('touchend', handleTouchEnd);
+
+    // Animation loop - cursor/touch glow that works on all devices
     let animationId: number;
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // Draw subtle cursor glow only
-      if (mouseX > 0 && mouseY > 0) {
+      // Draw subtle cursor/touch glow
+      if (isActive && pointerX > 0 && pointerY > 0) {
         const cursorGradient = ctx.createRadialGradient(
-          mouseX, mouseY, 0,
-          mouseX, mouseY, 150
+          pointerX, pointerY, 0,
+          pointerX, pointerY, 150
         );
         cursorGradient.addColorStop(0, 'rgba(139, 92, 246, 0.15)');
         cursorGradient.addColorStop(0.5, 'rgba(139, 92, 246, 0.08)');
         cursorGradient.addColorStop(1, 'rgba(139, 92, 246, 0)');
         
         ctx.fillStyle = cursorGradient;
-        ctx.fillRect(mouseX - 150, mouseY - 150, 300, 300);
+        ctx.fillRect(pointerX - 150, pointerY - 150, 300, 300);
       }
 
       animationId = requestAnimationFrame(animate);
@@ -56,6 +83,9 @@ const AnimatedBackground = () => {
     return () => {
       window.removeEventListener('resize', resizeCanvas);
       window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('mouseleave', handleMouseLeave);
+      window.removeEventListener('touchmove', handleTouchMove);
+      window.removeEventListener('touchend', handleTouchEnd);
       cancelAnimationFrame(animationId);
     };
   }, []);
