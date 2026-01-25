@@ -5,12 +5,16 @@ import WorkExperience from './components/WorkExperience';
 import LogoSection from './components/LogoSection';
 import Projects from './components/Projects';
 import Contact from './components/Contact';
+import AnimatedBackground from './components/AnimatedBackground';
 
 function App() {
   return (
     <div className="relative min-h-screen">
       {/* Background Gradient */}
       <div className="fixed inset-0 bg-gradient-to-b from-dark-950 via-dark-900 to-dark-950 -z-10" />
+      
+      {/* Animated Canvas Background */}
+      <AnimatedBackground />
       
       {/* Ambient Background Effects */}
       <div className="fixed inset-0 -z-10 overflow-hidden">
